@@ -14,4 +14,17 @@ Container Platform. Focus is on a High Availability reference installation.
 * [Advanced Installation](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.7/single/installation_and_configuration/index#install-config-install-advanced-install)
 
 ## Example inventory
-* [hosts](/hosts)
+* [hosts](/hosts.v.3.7)
+
+## DNS
+All hosts listed in the inventory file must be resolvable to the inteface where OpenShift traffic is intended.
+
+Additionally to the hosts in the inventory there must be defined three DNS aliases;
+1. The internal api endpoint DNS, eg. *internal-ocp.example.com*, resolving to the loadbalancer nodes LAN address, which forwards the traffic to the masters
+2. The external api endpoint DNS, eg. *ocp.example.com*, resolving to an external/internet facing loadbalancer, which forwards traffic also to the masters
+3. A wildcard DNS, eg *\*.apps.example.com*, that will be forwarded to the OpenShift routers
+
+## Sidenotes
+Despite OpenShift deploys routers on nodes labeled as *region=infra*, it is expected, that an existing enterprise grade loadbalancer (eg. F5) is used to forward the traffic from the wildcard DNS to the *region=infra* nodes.
+
+But the deployed loadbalancer host in the example inventory can be used and the forwarding can be added there. *An example for this is on the TODO list*
