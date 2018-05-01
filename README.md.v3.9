@@ -1,0 +1,38 @@
+# OpenShift Proof of Concept
+
+This repository aims to host information needed to install Red Hat OpenShift
+Container Platform. Focus is on a High Availability reference installation.
+
+## Platform details
+* Red Hat Enterprise Linux **7.5**
+* Red Hat OpenShift Container Platform **3.9**
+
+## Link Collection
+* [Logical Architecture and Bill of Materials](http://redhat.slides.com/sspreitz/openshift-poc?token=b1Yx77VW), page 5 & 6
+* [Prerequisites](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.9/single/installation_and_configuration/index#install-config-install-prerequisites)
+* [Host Preparation](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.9/single/installation_and_configuration/index#install-config-install-host-preparation)
+* [Advanced Installation](https://access.redhat.com/documentation/en-us/openshift_container_platform/3.9/single/installation_and_configuration/index#install-config-install-advanced-install)
+
+## Example inventory
+* [hosts](/hosts)
+
+## DNS
+All hosts listed in the inventory file must be resolvable to the interface where OpenShift traffic is intended.
+
+Additionally to the hosts in the inventory there must be defined three DNS aliases;
+1. The internal api endpoint DNS, eg. *internal-ocp.example.com*, resolving to the loadbalancer nodes LAN address, which forwards the traffic to the masters
+2. The external api endpoint DNS, eg. *ocp.example.com*, resolving to an external/internet facing loadbalancer, which forwards traffic also to the masters
+3. A wildcard DNS, eg *\*.apps.example.com*, that will be forwarded to the OpenShift routers
+
+## Storage
+NFS storage is obsolete as of version 3.9 of this PoC.
+
+This PoC makes use of GlusterFS and Heketi deployed inside OpenShift (Container Native Storage - CNS). **Please make sure there is an additional disk available with at least 200GB space on the first three nodes.** See the glusterfs group in the inventory file. Check and change the device name if needed, eg. ```/dev/sdb```.
+
+## RHEL 7.5
+*RHEL 7.5* makes use of *docker-1.13.1* and uses *overlay2* instead of *devicemapper* docker-storage. Thus an additional disk for docker is no longer needed, just make sure your system disk is sufficient in space (+75GB) or make (local attached) space available at ```/var/lib/docker```.
+
+## Sidenotes
+Despite OpenShift deploys routers on nodes labeled as *region=infra*, it is expected, that an existing enterprise grade loadbalancer (eg. F5) is used to forward the traffic from the wildcard DNS to the *region=infra* nodes.
+
+But the deployed loadbalancer host in the example inventory can be used and the forwarding can be added there. *An example for this is on the TODO list*
