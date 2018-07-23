@@ -79,6 +79,6 @@ This PoC makes use of GlusterFS and Heketi deployed inside OpenShift (Container 
 ## Sidenotes
 OpenShift deploys software loadbalancers (HAProxy) on *infra* nodes to route traffic to applications, however a company enterprise grade loadbalancer cluster is assumed to forward traffic to these OpenShift software loadbalancers and API of the master nodes.
 
-*The OpenShift provided "lb" node is node meant to be used in production environments as it lacks high availability features.*
+*The OpenShift provided "lb" node is not meant to be used in production environments as it lacks high availability features.*
 
 *The OpenShift provided "lb" node is only intended to serve API traffic to the "master" nodes, but can also be used to route traffic to the OpenShift hosted router aka software loadbalancer HAProxy.*
