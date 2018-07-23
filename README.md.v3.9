@@ -72,9 +72,7 @@ Additionally to the hosts in the inventory there must be defined three DNS alias
 |*.apps.example.com|192.168.0.2|
 
 ## Storage
-NFS storage is obsolete as of version 3.9 of this PoC.
-
-This PoC makes use of GlusterFS and Heketi deployed inside OpenShift (Container Native Storage - CNS). **Please make sure there is an additional disk available with at least 200GB space on the first three nodes.** See the glusterfs group in the inventory file. Check and change the device name if needed, eg. ```/dev/sdb```.
+This PoC makes use of Container Native Storage (CNS), which is GlusterFS and Heketi deployed inside OpenShift. **Please make sure there is an additional disk available with at least 200GB space on the first three nodes.** See the glusterfs group in the inventory file. Check and change the device name if needed, eg. ```/dev/sdb```.
 
 ## Sidenotes
 OpenShift deploys software loadbalancers (HAProxy) on *infra* nodes to route traffic to applications, however a company enterprise grade loadbalancer cluster is assumed to forward traffic to these OpenShift software loadbalancers and API of the master nodes.
