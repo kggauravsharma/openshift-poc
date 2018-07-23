@@ -11,7 +11,6 @@
 * [DNS](#dns)
   * [DNS Example](#dns-example)
 * [Storage](#storage)
-* [RHEL 7.5](#rhel-7.5)
 * [Sidenotes](#idenotes)
 
 ## Introduction
@@ -77,10 +76,9 @@ NFS storage is obsolete as of version 3.9 of this PoC.
 
 This PoC makes use of GlusterFS and Heketi deployed inside OpenShift (Container Native Storage - CNS). **Please make sure there is an additional disk available with at least 200GB space on the first three nodes.** See the glusterfs group in the inventory file. Check and change the device name if needed, eg. ```/dev/sdb```.
 
-## RHEL 7.5
-*RHEL 7.5* makes use of *docker-1.13.1* and uses *overlay2* instead of *devicemapper* docker-storage. Thus an additional disk for docker is no longer needed, just make sure your system disk is sufficient in space (+75GB) or make (local attached) space available at ```/var/lib/docker```.
-
 ## Sidenotes
-Despite OpenShift deploys routers on nodes labeled as *region=infra*, it is expected, that an existing enterprise grade loadbalancer (eg. F5) is used to forward the traffic from the wildcard DNS to the *region=infra* nodes.
+OpenShift deploys software loadbalancers (HAProxy) on *infra* nodes to route traffic to applications, however a company enterprise grade loadbalancer cluster is assumed to forward traffic to these OpenShift software loadbalancers and API of the master nodes.
 
-But the deployed loadbalancer host in the example inventory can be used and the forwarding can be added there. *An example for this is on the TODO list*
+*The OpenShift provided "lb" node is node meant to be used in production environments as it lacks high availability features.*
+
+*The OpenShift provided "lb" node is only intended to serve API traffic to the "master" nodes, but can also be used to route traffic to the OpenShift hosted router aka software loadbalancer HAProxy.*
