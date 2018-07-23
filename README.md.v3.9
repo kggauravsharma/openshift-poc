@@ -24,7 +24,7 @@ Container Platform. Focus is on a High Availability reference installation.
 The mentioned node sizes (not masters or loadbalancer) are the minimum prerequisites as of the documentation.
 Based on my experience it is a good rule of thumb to double the node size for a normal user experience, quadruple for a very good user experience.
 
-<b style="color:red">Very important: The resources you apply to an OpenShift cluster should be fully reserved. There should not be any resource stealing from other VMs or memory, cpu, storage, network over-commitment. Otherwise the Kubernetes resource quotas will have no effect and application developers can not rely on the performance of the  platform.</b> 
+<b style="color:red">Very important: The resources you apply to an OpenShift cluster should be fully reserved. There should not be any resource stealing from other VMs or memory, cpu, storage, network over-commitment. Otherwise the Kubernetes resource quotas will have no effect and application developers can not rely on the performance of the  platform.</b>
 
 ## Example inventory
 * [hosts](/hosts.v3.9)
@@ -36,6 +36,25 @@ Additionally to the hosts in the inventory there must be defined three DNS alias
 1. The internal api endpoint DNS, eg. *internal-ocp.example.com*, resolving to the loadbalancer nodes LAN address, which forwards the traffic to the masters
 2. The external api endpoint DNS, eg. *ocp.example.com*, resolving to an external/internet facing loadbalancer, which forwards traffic also to the masters
 3. A wildcard DNS, eg *\*.apps.example.com*, that will be forwarded to the OpenShift routers
+
+*Entries could also be added via the host preparation to /etc/hosts.*
+
+### DNS example
+
+|FQDN|IP|
+|---:|---:|
+|ocp-lb-1.ocp.example.com|192.168.0.2|
+|ocp-master-1.ocp.example.com|192.168.0.3|
+|ocp-master-2.ocp.example.com|192.168.0.4|
+|ocp-master-3.ocp.example.com|192.168.0.5|
+|ocp-node-1.ocp.example.com|192.168.0.6|
+|ocp-node-2.ocp.example.com|192.168.0.7|
+|ocp-node-3.ocp.example.com|192.168.0.8|
+|ocp-node-4.ocp.example.com|192.168.0.9|
+|ocp-node-5.ocp.example.com|192.168.0.10|
+|internal-ocp.example.com|192.168.0.2|
+|ocp.example.com|192.168.0.2|
+|*.apps.example.com|192.168.0.2|
 
 ## Storage
 NFS storage is obsolete as of version 3.9 of this PoC.
