@@ -41,9 +41,6 @@ openshift_deployment_type=openshift-enterprise
 
 openshift_release=v3.9
 
-# To reuse also infra nodes as compute nodes
-osm_default_node_selector=''
-
 # Initial user developer, password 'developer'
 openshift_master_identity_providers=[{'name': 'htpasswd_auth', 'login': 'true', 'challenge': 'true', 'kind': 'HTPasswdPasswordIdentityProvider', 'filename': '/etc/origin/master/htpasswd'}]
 openshift_master_htpasswd_users={'developer': '$apr1$OVmqDesp$NI9opDIfIp4g9gQ53y2Bh0'}
