@@ -12,14 +12,14 @@ ocp-master-2.ocp.example.com
 ocp-master-3.ocp.example.com
 
 [nodes]
-ocp-master-1.ocp.example.com openshift_schedulable=False
-ocp-master-2.ocp.example.com openshift_schedulable=False
-ocp-master-3.ocp.example.com openshift_schedulable=False
-ocp-node-1.ocp.example.com openshift_node_labels="{'region': 'infra'}"
-ocp-node-2.ocp.example.com openshift_node_labels="{'region': 'infra'}"
-ocp-node-3.ocp.example.com openshift_node_labels="{'region': 'infra'}"
-ocp-node-4.ocp.example.com
-ocp-node-5.ocp.example.com
+ocp-master-1.ocp.example.com openshift_node_labels="{'node-role.kubernetes.io/master': 'true'}"
+ocp-master-2.ocp.example.com openshift_node_labels="{'node-role.kubernetes.io/master': 'true'}"
+ocp-master-3.ocp.example.com openshift_node_labels="{'node-role.kubernetes.io/master': 'true'}"
+ocp-node-1.ocp.example.com   openshift_node_labels="{'region': 'infra', 'node-role.kubernetes.io/compute': 'true', 'node-role.kubernetes.io/infra': 'true'}"
+ocp-node-2.ocp.example.com   openshift_node_labels="{'region': 'infra', 'node-role.kubernetes.io/compute': 'true', 'node-role.kubernetes.io/infra': 'true'}"
+ocp-node-3.ocp.example.com   openshift_node_labels="{'region': 'infra', 'node-role.kubernetes.io/compute': 'true', 'node-role.kubernetes.io/infra': 'true'}"
+ocp-node-4.ocp.example.com   openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}"
+ocp-node-5.ocp.example.com   openshift_node_labels="{'node-role.kubernetes.io/compute': 'true'}"
 
 [glusterfs]
 ocp-node-1.ocp.example.com glusterfs_devices="['/dev/vdb']"
@@ -55,8 +55,6 @@ openshift_master_cluster_public_hostname=ocp.example.com
 openshift_master_default_subdomain=apps.example.com
 
 os_sdn_network_plugin_name='redhat/openshift-ovs-multitenant'
-
-openshift_web_console_nodeselector={'region': 'infra'}
 
 openshift_storage_glusterfs_storageclass_default=True
 
