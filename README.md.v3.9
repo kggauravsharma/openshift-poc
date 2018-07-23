@@ -21,6 +21,11 @@ Container Platform. Focus is on a High Availability reference installation.
 
 ![BOM](assets/openshift-poc-bom.png?raw=true)
 
+The mentioned node sizes (not masters or loadbalancer) are the minimum prerequisites as of the documentation.
+Based on my experience it is a good rule of thumb to double the node size for a normal user experience, quadruple for a very good user experience.
+
+<b style="color:red">Very important: The resources you apply to an OpenShift cluster should be fully reserved. There should not be any resource stealing from other VMs or memory, cpu, storage, network over-commitment. Otherwise the Kubernetes resource quotas will have no effect and application developers can not rely on the performance of the  platform.</b> 
+
 ## Example inventory
 * [hosts](/hosts.v3.9)
 
